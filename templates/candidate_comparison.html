@@ -1,0 +1,193 @@
+<html>
+ <head>
+   <title>{{ body_name }} {{ district }} Candidate Positions</title>
+   <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+   <script 
+      src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.js">
+   </script>
+
+   <script>
+      $(document)
+        .ready(function() {
+
+          // fix candidate names to page on passing
+          //$('.candidates').visibility({
+          //  type: 'fixed'
+          //});
+    
+          
+          $('.ui.accordion')
+          .accordion({
+            selector: {
+              trigger: '.title'
+            }
+          });
+        })
+      ;
+    </script>
+
+   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700" rel="stylesheet">
+
+   
+   <link 
+      rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
+
+    <style type="text/css">
+    
+      :root {
+      --main-bg-color: #3AAFA9;
+      --divider-color: #2B7A78;
+      --accent-color: #17252A;
+      --accent-text-color: #FEFFFF;
+      --title-text-color: #DEF2F1;
+      --section-header-color: #DEF2F1;
+      --regular-text-color: #17252A;
+      }
+
+      body {
+        background-color: var(--main-bg-color);
+      }
+      .candidates.container {
+        margin-top: 2em;
+      }
+    
+      .ui.menu {
+        background-color: var(--divider-color);
+      }
+    
+      #brand {
+        color: var(--accent-text-color);
+        font-weight: 200;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 24px;
+      }
+    
+      h1 {
+        color: var(--title-text-color);
+      }
+    
+      a.candidate-text {
+        color: var(--title-text-color);
+      }
+      h3 {
+        color: var(--section-header-color);
+      }
+
+      .candidates {
+        margin-top: 4em;
+        margin-bottom: 4em;
+        border-radius: 10px;
+        border: none;
+        box-shadow: none;
+        transition:
+          box-shadow 0.5s ease,
+          padding 0.5s ease
+        ;
+        top: 0;
+        position:  -webkit-sticky;
+        position: sticky; 
+        background-color: var(--main-bg-color);
+        opacity: 1.0;
+        border: 1px solid var(--divider-color);
+        z-index: 100;
+        color: var(--title-text-color);
+        box-;
+      }
+    
+      .accordion {
+        margin-top: 4em;
+        margin-bottom: 4em;
+      }
+    
+      .priorities {
+        background-color: var(--accent-color);
+        color: var(--accent-text-color);
+        border-radius: 10px;
+        margin: 10px;
+        padding: 10px;
+      }
+    
+      .title {
+        background-color: var(--divider-color);
+        color: var(--section-header-color);
+        border: 1px solid var(--main-bg-color);
+        border-radius: 10px;
+      }
+      .positions {
+        padding: 10px;
+        color: var(--regular-text-color);
+      }
+    
+      .race_header {
+      margin-bottom: 4em;
+      }
+      
+
+   </style>
+ </head>
+ <body>
+   <div class="ui fluid menu">
+     <div class="item" id="brand">
+       <b>InformYourVote</b>
+     </div>
+   </div>
+   <div class="ui center aligned container race_header">
+     <p>
+       <h1>
+         {{ body_name }}<br>
+         {{ district }}
+       </h1>
+     </p>
+     <p>
+       <img src="/static/California.png" height="150px" />
+     </p>
+     <p>  </p>
+   </div>
+
+   <div class="ui container">
+     <div class="ui borderless centered divided padded grid candidates">
+       {% for candidate in candidates %}
+       <div class="column five wide">
+         <div class="ui center aligned container">
+           <h2><a href='{{ candidate.url }}' class="candidate-text">{{ candidate.name }}</a></h2>
+         </div>
+       </div>
+       {% endfor %} 
+     </div>
+
+     <div class="ui fluid accordion">
+       {% for category in categories %}
+       <div class="title {% if category == 'Priorities' %} active {% endif %}">
+         <h3>
+           <i class="dropdown icon"></i>
+           {{ category }}
+         </h3>
+       </div>
+       <div class="content  {% if category == 'Priorities' %} active {% endif %}">
+         <div class="ui borderless centered divided padded grid">
+           {% for candidate in candidates|map(attribute='name') %}
+           <div class="column five wide">
+             <div class="positions ui left aligned container">
+               {% for position in positions|
+               selectattr('candidate', 'equalto', candidate)|
+               selectattr('category', 'equalto', category) %}
+               {% if category == 'Priorities' %}
+               <span class="priorities">{{ position.val }}</span>
+               {% else %}
+               <p class="right aligned">{{ position.val }}</p>
+               {% endif %}
+               {% endfor %}
+             </div>
+           </div>
+           {% endfor %}
+         </div>
+       </div>
+       {% endfor %}
+     </div>
+   </div>
+ </body>
+</html>
