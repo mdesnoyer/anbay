@@ -12,11 +12,6 @@
    <script>
       $(document)
         .ready(function() {
-
-          // fix candidate names to page on passing
-          //$('.candidates').visibility({
-          //  type: 'fixed'
-          //});
     
           
           $('.ui.accordion')
@@ -39,13 +34,13 @@
     <style type="text/css">
     
       :root {
-      --main-bg-color: rgb(240,255,220);
-      --divider-color: rgb(105,159,23);
-      --accent-color: rgb(31,74,37);
-      --accent-text-color: rgb(240,255,220);
+      --main-bg-color: rgb(240,240,245);
+      --divider-color: rgb(40,40,60);
+      --accent-color: rgb(98,142,61);
+      --accent-text-color: rgb(40,40,45);
       --title-text-color: rgb(31,74,37);
-      --section-header-color: rgb(31,74,37);
-      --regular-text-color: rgb(118,126,19);
+      --section-header-color: rgb(240,240,245);
+      --regular-text-color: rgb(100,100, 105);
       }
 
       body {
@@ -59,6 +54,10 @@
         background-color: var(--divider-color);
       }
     
+      img.logo {
+        width: 75px;
+      }
+    
       #brand {
         color: var(--accent-text-color);
         font-weight: 200;
@@ -68,6 +67,8 @@
     
       h1 {
         color: var(--title-text-color);
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 36px;
       }
     
       a.candidate-text {
@@ -109,6 +110,11 @@
         border-radius: 10px;
         margin: 10px;
         padding: 10px;
+    
+        box-shadow: 3px 6px 18px #888888;
+      }
+      a.priority {
+       color: var(--accent-text-color);
       }
     
       .title {
@@ -119,6 +125,9 @@
       }
       .positions {
         padding: 10px;
+        color: var(--regular-text-color);
+      }
+      a.position {
         color: var(--regular-text-color);
       }
     
@@ -135,8 +144,8 @@
  </head>
  <body>
    <div class="ui fluid menu">
-     <div class="item" id="brand">
-       <b>InformYourVote</b>
+     <div class="item">
+       <img class="ui logo" src="/static/logo.png" />
      </div>
    </div>
    <div class="ui center aligned container race_header">
@@ -180,9 +189,17 @@
                selectattr('candidate', 'equalto', candidate)|
                selectattr('category', 'equalto', category) %}
                {% if category == 'Priorities' %}
-               <span class="priorities">{{ position.val }}</span>
+               <span class="priorities">
+                 <a class="priority" href="{{ position.url }}">
+                   {{ position.val }}
+                 </a>
+               </span>
                {% else %}
-               <p class="right aligned">{{ position.val }}</p>
+               <p class="right aligned">
+                 <a class = "position" href="{{ position.url }}">
+                   {{ position.val }}
+                 </a>
+               </p>
                {% endif %}
                {% endfor %}
              </div>
