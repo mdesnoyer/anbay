@@ -73,8 +73,11 @@ h3 {
     background-color: var(--accent-color);
     color: var(--accent-text-color);
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
+    border: 0px;
+    text-align: center;
+    display: inline-block;
     
     box-shadow: 3px 6px 18px #888888;
 }

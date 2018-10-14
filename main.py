@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
 
+import datetime as dt
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+_deploy_day = dt.datetime.now().date().isoformat()
+
+@app.route('/sitemap.xml')
+def sitemap():
+    pages = [
+        '/us/house/ca-39'
+    ]
+
+    return render_template(
+        'sitemap_template.xml',
+        pages = [(x, _deploy_day) for x in pages]
+        )
+
 @app.route('/us/house/ca-39')
+@app.route('/')
 def ca_39():
     candidates = [
         {
@@ -68,7 +83,7 @@ def ca_39():
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
           'val': u'Education',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
-          'val': u'Health Care',  'url': 'https://cisnerosforcongress.com/'},
+          'val': u'Health Care',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
           'val': u'Veterans',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
           

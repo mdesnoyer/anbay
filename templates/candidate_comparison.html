@@ -51,7 +51,7 @@
    <div class="ui container">
      <div class="ui borderless centered divided padded grid candidates">
        {% for candidate in candidates %}
-       <div class="column five wide">
+       <div class="column seven wide">
          <div class="ui center aligned container">
            <h2><a href='{{ candidate.url }}' class="candidate-text">{{ candidate.name }}</a></h2>
          </div>
@@ -70,17 +70,17 @@
        <div class="content  {% if category == 'Priorities' %} active {% endif %}">
          <div class="ui borderless centered divided padded grid">
            {% for candidate in candidates|map(attribute='name') %}
-           <div class="column five wide">
+           <div class="column seven wide">
              <div class="positions ui left aligned container">
                {% for position in positions|
                selectattr('candidate', 'equalto', candidate)|
                selectattr('category', 'equalto', category) %}
                {% if category == 'Priorities' %}
-               <span class="priorities">
+               <button class="priorities">
                  <a class="priority" href="{{ position.url }}">
                    {{ position.val }}
                  </a>
-               </span>
+               </button>
                {% else %}
                <p class="right aligned">
                  <a class = "position" href="{{ position.url }}">
