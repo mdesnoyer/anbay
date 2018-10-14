@@ -7,10 +7,23 @@ app = Flask(__name__)
 
 _deploy_day = dt.datetime.now().date().isoformat()
 
+categories = [
+    'Priorities',
+    'Healthcare',
+    'Education',
+    'Environment',
+    'Economy',
+    'Security',
+    'Immigration',
+    'Governance',
+    'Veterans'
+]
+
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        '/us/house/ca-39'
+        '/us/house/ca-39',
+        '/us/house/ca-48',
     ]
 
     return render_template(
@@ -32,18 +45,6 @@ def ca_39():
             'party': 'Republican',
             'url': 'https://www.kimforcongress2018.com',
             },
-    ]
-
-    categories = [
-        'Priorities',
-        'Health Care',
-        'Education',
-        'Environment',
-        'Economy',
-        'Security',
-        'Immigration',
-        'Governance',
-        'Veterans'
     ]
     
     positions = [
@@ -83,7 +84,7 @@ def ca_39():
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
           'val': u'Education',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
-          'val': u'Health Care',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
+          'val': u'Healthcare',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
         { 'candidate': 'Gil Cisneros', 'category': 'Priorities',
           'val': u'Veterans',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16621/candidate/138040?id=statewide-69-ca'},
           
@@ -98,13 +99,13 @@ def ca_39():
         { 'candidate': 'Gil Cisneros', 'category': 'Economy',
           'val': u'Paid family leave',  'url': 'https://cisnerosforcongress.com/gilsplan/economy-works-middle-class/' },
           
-        { 'candidate': 'Gil Cisneros', 'category': 'Health Care',
+        { 'candidate': 'Gil Cisneros', 'category': 'Healthcare',
           'val': u'Protect existing coverage in the ACA',  'url': 'https://cisnerosforcongress.com/gilsplan/healthcare-for-all/' },
-        { 'candidate': 'Gil Cisneros', 'category': 'Health Care',
+        { 'candidate': 'Gil Cisneros', 'category': 'Healthcare',
           'val': u'▼ drug prices by allowing the government to negotiate with drug companies.',  'url': 'https://cisnerosforcongress.com/gilsplan/healthcare-for-all/' },
-        { 'candidate': 'Gil Cisneros', 'category': 'Health Care',
+        { 'candidate': 'Gil Cisneros', 'category': 'Healthcare',
           'val': u'Allow anybody to buy into Medicare.',  'url': 'https://cisnerosforcongress.com/gilsplan/healthcare-for-all/' },
-        { 'candidate': 'Gil Cisneros', 'category': 'Health Care',
+        { 'candidate': 'Gil Cisneros', 'category': 'Healthcare',
           'val': u'Sponsor the Disability Integration Act.',  'url': 'https://cisnerosforcongress.com/gils-plan-americans-disabilities/' },
           
         { 'candidate': 'Gil Cisneros', 'category': 'Education',
@@ -171,6 +172,120 @@ def ca_39():
         'candidate_comparison.html',
         body_name = 'US House',
         district = 'CA-39',
+        candidates = candidates,
+        categories = [x for x in categories if x in position_categories],
+        positions = positions
+    )
+
+@app.route('/us/house/ca-48')
+def ca48():
+    candidates = [
+        {
+            'name': 'Harley Rouda',
+            'party': 'Democrat',
+            'url': 'https://www.harleyforcongress.com/',
+        },
+        {
+            'name': 'Dana Rohrabacher',
+            'party': 'Republican',
+            'url': 'http://www.rohrabacher.com',
+            },
+    ]
+
+    positions = [
+        { 'candidate': 'Harley Rouda', 'category': 'Priorities',
+          'val': u'Healthcare',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16630/candidate/138091?id=statewide-69-ca'},
+        { 'candidate': 'Harley Rouda', 'category': 'Priorities',
+          'val': u'Environment',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16630/candidate/138091?id=statewide-69-ca'},
+        { 'candidate': 'Harley Rouda', 'category': 'Priorities',
+          'val': u'Education',  'url': 'https://votersedge.org/en/ca/ballot/election/area/69/contests/contest/16630/candidate/138091?id=statewide-69-ca'},
+
+        { 'candidate': 'Harley Rouda', 'category': 'Economy',
+          'val': u'Close tax loopholes for the wealthy',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Economy',
+          'val': u'▲ taxes on old industries',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Economy',
+          'val': u'Invest in education',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Education',
+          'val': u'Universal pre-kindergarten',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Education',
+          'val': u'Tuition-free university and college',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Education',
+          'val': u'▲ trade apprentiships',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Education',
+          'val': u'Tax credit for employers who contribute to employees\' student loans',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Security',
+          'val': u'▼ the risk of gun violence',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Healthcare',
+          'val': u'Protect pre-existing coverage in the ACA',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Healthcare',
+          'val': u'Expand Medicare',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Healthcare',
+          'val': u'Stop the abuse of opioids',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Governance',
+          'val': u'Stop corporate political spending',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Environment',
+          'val': u'Protect the California coast from drilling',  'url': 'https://www.harleyforcongress.com/issues/'},
+        { 'candidate': 'Harley Rouda', 'category': 'Environment',
+          'val': u'▲ clean energy investment',  'url': 'https://www.harleyforcongress.com/issues/'},
+
+
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Priorities',
+          'val': u'Immigration',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Priorities',
+          'val': u'Technology',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Priorities',
+          'val': u'Energy',  'url': 'http://www.rohrabacher.com/issues.html'},
+
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Economy',
+          'val': u'▼ all taxes',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Economy',
+          'val': u'Protect patents',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Economy',
+          'val': u'▲ aerospace spending',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Environment',
+          'val': u'▲ oil and gas drilling and fracking',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Environment',
+          'val': u'Build solar farms on federal land',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Environment',
+          'val': u'Build water reclamation and desalination plants',  'url': 'https://voiceofoc.org/2018/08/epa-provides-135-million-for-innovative-groundwater-replenishment-project-expansion-in-orange-county/'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Environment',
+          'val': u'▼ oversight of water pollution',  'url': 'https://www.congress.gov/bill/115th-congress/house-bill/953'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Environment',
+          'val': u'Global warming does not exist',  'url': 'https://en.wikipedia.org/wiki/Dana_Rohrabacher#Global_warming'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Security',
+          'val': u'▼ the number of troops',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Security',
+          'val': u'▲ spending on military technology',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Immigration',
+          'val': u'▲ screening of people applying for jobs',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Immigration',
+          'val': u'▲ requirements to use the safety net',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Immigration',
+          'val': u'No citizenship for immigrants without papers',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Security',
+          'val': u'▲ spending on border security',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Education',
+          'val': u'Remove federal education standards',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Security',
+          'val': u'Reduce surveillance within the US',  'url': 'http://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Healthcare',
+          'val': u'▼ insurance coverage',  'url': 'https://en.wikipedia.org/wiki/American_Health_Care_Act_of_2017#Estimated_impact_of_the_Republican_AHCA_and_BCRA'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Healthcare',
+          'val': u'▼ premiums for younger people',  'url': 'https://en.wikipedia.org/wiki/American_Health_Care_Act_of_2017#Insurance_costs_and_quality'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Healthcare',
+          'val': u'▲ premiums for older people',  'url': 'https://en.wikipedia.org/wiki/American_Health_Care_Act_of_2017#Insurance_costs_and_qualityhttp://www.rohrabacher.com/issues.html'},
+        { 'candidate': 'Dana Rohrabacher', 'category': 'Governance',
+          'val': u'Release the 9/11 and Kennedy assasination reports',  'url': 'http://www.rohrabacher.com/issues.html'},
+
+    ]
+
+    position_categories = set([x['category'] for x in positions])
+
+    return render_template(
+        'candidate_comparison.html',
+        body_name = 'US House',
+        district = 'CA-48',
         candidates = candidates,
         categories = [x for x in categories if x in position_categories],
         positions = positions
